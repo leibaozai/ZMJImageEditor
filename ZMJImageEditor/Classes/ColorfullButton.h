@@ -12,5 +12,5 @@
 @property (nonatomic, assign) IBInspectable CGFloat radius;
 @property (nonatomic, strong) IBInspectable UIColor *color;
 @property (nonatomic, assign) BOOL isUse;
-
+@property (nonatomic, strong) CAShapeLayer *shapeLayer;
 @end
