@@ -62,6 +62,11 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
 
 @implementation WBGImageEditorViewController
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -110,12 +115,16 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveColorPanNotificaiton) name:kColorPanNotificaiton object:nil];
+    
     self.undoButton.hidden = YES;
     
 //    self.colorPan.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 60, 100, self.colorPan.bounds.size.width, self.colorPan.bounds.size.height);
     self.colorPan.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height-99, [UIScreen mainScreen].bounds.size.width, 50);
     self.colorPan.dataSource = self.dataSource;
-    [self.view addSubview:_colorPan];
+    self.colorPan.undoButton.enabled = NO;
+    self.colorPan.undoButton.selected = NO;
+    [self.view addSubview:self.colorPan];
     
     [self initImageScrollView];
     
@@ -255,8 +264,12 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
         _drawTool.drawToolStatus = ^(BOOL canPrev) {
             if (canPrev) {
                 weakSelf.undoButton.hidden = NO;
+                weakSelf.colorPan.undoButton.enabled = YES;
+                weakSelf.colorPan.undoButton.selected = YES;
             } else {
                 weakSelf.undoButton.hidden = YES;
+                weakSelf.colorPan.undoButton.enabled = NO;
+                weakSelf.colorPan.undoButton.selected = NO;
             }
         };
         _drawTool.drawingCallback = ^(BOOL isDrawing) {
@@ -341,6 +354,14 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+#pragma mark - Notificaiton
+- (void)receiveColorPanNotificaiton {
+    //先设置状态，然后在干别的
+    self.currentMode = EditorDrawMode;
+    
+    self.currentTool = self.drawTool;
 }
 
 #pragma mark- ScrollView delegate
@@ -449,7 +470,7 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
     [self hiddenColorPan:YES animation:YES];
 }
 
-//贴图模式
+//马赛克模式
 - (IBAction)paperAction:(UIButton *)sender {
     if (_currentMode == EditorTextMode) {
         return;
@@ -480,6 +501,8 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
             [strongSelf.drawTool drawLine];
             [strongSelf.drawingView removeAllSubviews];
             strongSelf.undoButton.hidden = YES;
+            strongSelf.colorPan.undoButton.enabled = NO;
+            strongSelf.colorPan.undoButton.selected = NO;
         };
         
         [weakSelf presentViewController:vc animated:YES completion:^{
@@ -511,6 +534,12 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
     }
 }
 
+- (IBAction)colorPanUndoAction:(UIButton *)sender {
+    if (self.currentMode == EditorDrawMode) {
+        WBGDrawTool *tool = (WBGDrawTool *)self.currentTool;
+        [tool backToLastDraw];
+    }
+}
 
 - (void)editTextAgain {
     //WBGTextTool 钩子调用
@@ -608,6 +637,8 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
     [self.drawTool drawLine];
     [_drawingView removeAllSubviews];
     self.undoButton.hidden = YES;
+    weakSelf.colorPan.undoButton.enabled = NO;
+    weakSelf.colorPan.undoButton.selected = NO;
 }
 
 - (void)cropViewController:(TOCropViewController *)cropViewController didFinishCancelled:(BOOL)cancelled {
@@ -638,15 +669,28 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
             self.panButton.selected = YES;
             if (self.drawTool.allLineMutableArray.count > 0) {
                 self.undoButton.hidden  = NO;
+                self.colorPan.undoButton.enabled = YES;
+                self.colorPan.undoButton.selected = YES;
             }
+            
+            self.paperButton.selected = NO;
         }
             break;
         case EditorTextMode:
         case EditorClipMode:
         case EditorNonMode:
+        case EditorPaperMode:
         {
             self.panButton.selected = NO;
             self.undoButton.hidden  = YES;
+            self.colorPan.undoButton.enabled = NO;
+            self.colorPan.undoButton.selected = NO;
+            
+            if (_currentMode == EditorPaperMode) {
+                self.paperButton.selected = YES;
+            } else {
+                self.paperButton.selected = NO;
+            }
         }
             break;
         default:
@@ -662,9 +706,11 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
     
     [UIView animateWithDuration:animation ? .25f : 0.f delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:isHide ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn animations:^{
         if (isHide) {
+            self.colorPan.top = [UIScreen mainScreen].bounds.size.height;
             bottomBarBottom.constant = -49.f;
             topBarTop.constant = -64.f;
         } else {
+            self.colorPan.top = [UIScreen mainScreen].bounds.size.height-99;
             bottomBarBottom.constant = 0;
             topBarTop.constant = 0;
         }
@@ -776,6 +822,8 @@ NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
 @property (weak, nonatomic) IBOutlet ColorfullButton *blueButton;
 @property (weak, nonatomic) IBOutlet ColorfullButton *pinkButton;
 @property (weak, nonatomic) IBOutlet ColorfullButton *whiteButton;
+
+
 
 @end
 

@@ -19,6 +19,7 @@
 /** 手指的涂抹路径 */
 @property (nonatomic, assign) CGMutablePathRef path;
 
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @end
 
 @implementation XScratchView
@@ -42,6 +43,16 @@
 
         self.imageLayer.mask = self.shapeLayer;
         self.path = CGPathCreateMutable();
+        
+        //点击手势
+        if (!self.tapGesture) {
+            self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(drawingViewDidTap:)];
+            self.tapGesture.numberOfTouchesRequired = 1;
+            self.tapGesture.numberOfTapsRequired = 1;
+            
+        }
+        self.surfaceImageView.userInteractionEnabled = YES;
+        [self.surfaceImageView addGestureRecognizer:self.tapGesture];
     }
     return self;
 }
@@ -54,6 +65,12 @@
 - (void)setSurfaceImage:(UIImage *)surfaceImage{
     _surfaceImage = surfaceImage;
     self.surfaceImageView.image = surfaceImage;
+}
+
+- (void)drawingViewDidTap:(UITapGestureRecognizer *)sender {
+    if (self.drawingDidTap) {
+        self.drawingDidTap();
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -71,10 +88,18 @@
     CGPoint point = [touch locationInView:self];
     CGPathAddLineToPoint(self.path, nil, point.x, point.y);
     self.shapeLayer.path = self.path;
+    
+    if (self.drawingCallback) {
+        self.drawingCallback(YES);
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesEnded:touches withEvent:event];
+    
+    if (self.drawingCallback) {
+        self.drawingCallback(NO);
+    }
 }
 
 - (void)recover{

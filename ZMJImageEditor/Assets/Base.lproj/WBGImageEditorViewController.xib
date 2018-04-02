@@ -24,7 +24,6 @@
                 <outlet property="textButton" destination="cnm-kZ-dpx" id="Gv1-I7-f2Y"/>
                 <outlet property="topBar" destination="vKW-ZA-nXo" id="4f1-Hp-06S"/>
                 <outlet property="topBarTop" destination="V7Y-h0-Shc" id="Y3q-lg-gKw"/>
-                <outlet property="undoButton" destination="yeV-aj-vVt" id="CuD-0G-Osx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -106,7 +105,9 @@
                                     <rect key="frame" x="216" y="8" width="32" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                    <state key="normal" image="paper"/>
+                                    <state key="normal" image="icon_zsk_t_tmn"/>
+                                    <state key="selected" image="icon_zsk_t_tm"/>
+                                    <state key="highlighted" image="icon_zsk_t_tm"/>
                                     <connections>
                                         <action selector="paperAction:" destination="-1" eventType="touchUpInside" id="uSp-LB-Pto"/>
                                     </connections>
@@ -120,7 +121,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vKW-ZA-nXo">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeV-aj-vVt">
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeV-aj-vVt">
                                     <rect key="frame" x="317" y="0.0" width="58" height="64"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -271,7 +272,11 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QNc-L8-aAn">
                     <rect key="frame" x="328" y="0.0" width="47" height="50"/>
-                    <state key="normal" image="clip_rotate"/>
+                    <state key="normal" image="icon_sck_cx_n"/>
+                    <state key="selected" image="icon_sck_cx_a"/>
+                    <connections>
+                        <action selector="colorPanUndoAction:" destination="-1" eventType="touchUpInside" id="bNk-nQ-wFE"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dNy-jG-GtG" customClass="ColorfullButton">
                     <rect key="frame" x="187.5" y="0.0" width="46.5" height="50"/>
@@ -331,6 +336,7 @@
                 <outlet property="orangeButton" destination="mkk-gZ-s6N" id="v4F-i9-aJJ"/>
                 <outlet property="pinkButton" destination="5Gj-hS-oFY" id="hBV-x8-T4n"/>
                 <outlet property="redButton" destination="Amr-zt-BtQ" id="2ss-iL-Lx1"/>
+                <outlet property="undoButton" destination="QNc-L8-aAn" id="YU1-hC-ib3"/>
                 <outlet property="whiteButton" destination="i0g-bR-qjp" id="4SI-pT-Kpd"/>
                 <outlet property="yellowButton" destination="Izr-6E-ZG3" id="h42-AF-SFI"/>
                 <outletCollection property="colorButtons" destination="ARf-dS-bzm" id="K0i-Ym-0CT"/>
@@ -348,8 +354,10 @@
         <image name="annotate" width="32" height="32"/>
         <image name="annotate_selected" width="32" height="32"/>
         <image name="clip" width="32" height="32"/>
-        <image name="clip_rotate" width="32" height="32"/>
-        <image name="paper" width="100" height="100"/>
+        <image name="icon_sck_cx_a" width="16" height="16"/>
+        <image name="icon_sck_cx_n" width="16" height="16"/>
+        <image name="icon_zsk_t_tm" width="29" height="29"/>
+        <image name="icon_zsk_t_tmn" width="29" height="29"/>
         <image name="text" width="32" height="32"/>
         <image name="text_selected" width="32" height="32"/>
     </resources>

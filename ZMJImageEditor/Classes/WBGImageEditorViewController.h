@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, EditorMode) {
 extern NSString * const kColorPanNotificaiton;
 
 @interface WBGColorPan : UIView
+@property (weak, nonatomic) IBOutlet UIButton *undoButton;
 @property (nonatomic, strong, readonly) UIColor *currentColor;
 @property (nonatomic, weak) id<WBGImageEditorDataSource> dataSource;
 @end

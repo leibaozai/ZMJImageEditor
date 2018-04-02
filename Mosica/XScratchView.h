@@ -10,6 +10,10 @@
 
 @interface XScratchView : UIView
 
+@property (nonatomic, copy) void (^drawToolStatus)(BOOL canPrev);
+@property (nonatomic, copy) void (^drawingCallback)(BOOL isDrawing);
+@property (nonatomic, copy) void (^drawingDidTap)(void);
+
 /** masoicImage(放在底层) */
 @property (nonatomic, strong) UIImage *mosaicImage;
 /** surfaceImage(放在顶层) */
