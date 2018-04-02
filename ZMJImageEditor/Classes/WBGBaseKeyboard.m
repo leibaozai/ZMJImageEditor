@@ -8,7 +8,8 @@
 
 #import "WBGBaseKeyboard.h"
 #import <Masonry/Masonry.h>
-@import YYCategories.UIView_YYAdd;
+#import "YYCategories.h"
+//@import YYCategories.UIView_YYAdd;
 
 @implementation WBGBaseKeyboard
 

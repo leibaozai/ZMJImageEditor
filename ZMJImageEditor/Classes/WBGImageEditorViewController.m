@@ -18,8 +18,8 @@
 #import "WBGImageEditor.h"
 #import "WBGMoreKeyboard.h"
 #import "WBGMosicaViewController.h"
-
-@import YYCategories;
+#import "YYCategories.h"
+//@import YYCategories;
 
 NSString * const kColorPanNotificaiton = @"kColorPanNotificaiton";
 #pragma mark - WBGImageEditorViewController
