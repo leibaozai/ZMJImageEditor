@@ -69,7 +69,7 @@
 }
 
 - (NSNumber *)imageEditorDrawPathWidth {
-    return @(5.f);
+    return @(10.f);
 }
 #pragma mark - ------line------
 - (void)didReceiveMemoryWarning

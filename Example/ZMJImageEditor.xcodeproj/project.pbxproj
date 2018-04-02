@@ -253,11 +253,7 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = keshiim;
 				TargetAttributes = {
-					6003F589195388D20070C39A = {
-						DevelopmentTeam = FK8GBPF6A2;
-					};
 					6003F5AD195388D20070C39A = {
-						DevelopmentTeam = FK8GBPF6A2;
 						LastSwiftMigration = 0830;
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -563,7 +559,6 @@
 			baseConfigurationReference = F8B003FCF35DA1C073F3898D /* Pods-ZMJImageEditor_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = FK8GBPF6A2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZMJImageEditor/ZMJImageEditor-Prefix.pch";
 				INFOPLIST_FILE = "ZMJImageEditor/ZMJImageEditor-Info.plist";
@@ -579,7 +574,6 @@
 			baseConfigurationReference = 2A2E827517B641A65CA729C3 /* Pods-ZMJImageEditor_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = FK8GBPF6A2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZMJImageEditor/ZMJImageEditor-Prefix.pch";
 				INFOPLIST_FILE = "ZMJImageEditor/ZMJImageEditor-Info.plist";
@@ -595,7 +589,6 @@
 			baseConfigurationReference = 61B4020DC01A3C1A893ADD31 /* Pods-ZMJImageEditor_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = FK8GBPF6A2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -621,7 +614,6 @@
 			baseConfigurationReference = 34987136E676891CB6349AD8 /* Pods-ZMJImageEditor_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = FK8GBPF6A2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
